@@ -677,14 +677,12 @@ async function downloadSelectedFiles() {
             if (qubits === undefined || positionInt === undefined) {
                 console.warn(`Skipping mutant file generation for combination ${currentMutantCombination}: 'qubits' or 'Position_int' missing in allMutantsData row.`, row);
             } else {
-				if (operation === 'Add'){
-					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inGap_${positionInt}_.qasm`;
-				}
-				if (operation === 'Remove'){
-					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${positionInt}.qasm`;
-				}
-				if (operation === 'Replace'){
+				if (operation === "Replace") {
 					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inPositionOfGate_${positionInt}.qasm`;
+				} else if (operation === "Remove") {
+					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${positionInt}.qasm`;
+				} else {
+					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inGap_${positionInt}_.qasm`;
 				}
                 filesToFetch.push(mutantFilePath);
             }
