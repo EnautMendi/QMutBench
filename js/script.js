@@ -679,12 +679,14 @@ async function downloadSelectedFiles() {
             } else {
 				if (operation === "Replace") {
 					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inPositionOfGate_${positionInt}.qasm`;
+					filesToFetch.push(mutantFilePath);
 				} else if (operation === "Remove") {
 					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${positionInt}.qasm`;
+					filesToFetch.push(mutantFilePath);
 				} else {
 					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inGap_${positionInt}_.qasm`;
+					filesToFetch.push(mutantFilePath);
 				}
-                filesToFetch.push(mutantFilePath);
             }
 
             if (qubits !== undefined) {
