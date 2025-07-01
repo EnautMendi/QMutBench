@@ -1,0 +1,773 @@
+/* Basic Reset & Typography */
+:root {
+    --primary-color: #f25d22; /* Orange */
+    --secondary-color: #f25d22; /* Orange */
+    --background-light: #f8f9fa; /* Light grey */
+    --background-dark: #e9ecef; /* Slightly darker grey */
+    --text-color: #343a40; /* Dark grey */
+    --border-color: #ced4da; /* Light border */
+    --card-background: #ffffff; /* White */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --header-footer-bg: #f25d22; /* Orange background for header/footer */
+    --header-footer-text: #ffffff; /* White text for header/footer */
+    --success-color: #28a745; /* Green for download button */
+    --locked-overlay-color: rgba(0, 0, 0, 0.2); /* Lighter overlay for locked sections */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: auto;
+    width: auto;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-light);
+    display: flex;
+    flex-direction: column; /* Arrange sections vertically */
+    min-height: 100vh;
+}
+
+/* Header Section */
+.header {
+    background-color: var(--header-footer-bg);
+    color: var(--header-footer-text);
+    padding: 20px 40px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    font-weight: 600;
+    color: var(--header-footer-text);
+}
+
+.header p {
+    font-size: 1.1em;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+/* Main Content Wrapper */
+.main-content {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px; 
+}
+
+/* Container for the main application logic (filters & results) */
+.content-card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    padding: 40px;
+    max-width: 1400px; 
+    width: 100%;
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 30px; 
+    grid-template-rows: repeat(3, 1fr);
+}
+
+/* Styling for each individual section within the content-card */
+.generic-selection-section,
+.specific-characteristics-section,
+.results-section {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative; 
+    transition: all 0.3s ease-in-out; 
+    display: flex; 
+    flex-direction: column;
+    min-height: 0;
+    max-height: none; 
+    overflow-y: visible; 
+    overflow-x: visible;
+    grid-row-end: span 1;
+    min-width: 0; 
+}
+
+
+/* Styling for a locked section */
+.locked-section {
+    filter: grayscale(50%) brightness(100%);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Overlay for locked sections */
+.locked-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--locked-overlay-color); 
+    border-radius: 8;
+    z-index: 1;
+}
+
+
+/* Section Title Styling */
+.section-title {
+    font-size: 1.5em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--background-dark);
+    padding-bottom: 10px;
+    flex-shrink: 0; 
+}
+
+/* Filter Group Styling*/
+.selection-grid {
+    display: grid;
+    gap: 20px;
+    flex-grow: 1; 
+    width: 100%;
+    min-width: 0;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+select, input[type="text"] {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    background-color: var(--background-light);
+    color: var(--text-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 8px;
+}
+
+select:focus, input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Checkbox specific styling*/
+.checkbox-group {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 12px;
+    background-color: var(--background-light);
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    max-height: 350px; 
+    overflow-y: auto;
+    min-width: 0;
+}
+
+.checkbox-group#program-origin-checkboxes {
+    max-height: 500px;
+}
+
+/* Style for the "Select All" checkbox label */
+.checkbox-group .select-all-toggle {
+    font-weight: 600; 
+    color: var(--primary-color); 
+    margin-bottom: 5px; 
+    flex-shrink: 0; 
+}
+
+/* Style for the horizontal rule below "Select All" */
+.checkbox-group .toggle-separator {
+    border: none;
+    border-top: 1px dashed var(--border-color);
+    margin: 5px 0 10px 0; 
+    flex-shrink: 0; 
+}
+
+/* Styles for the two-column program origin layout (Dominant/Non-Dominant) */
+.output-type-columns {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 15px; 
+    padding-top: 5px;
+    flex-grow: 1; 
+    width: 100%;
+    min-width: 0;
+    overflow-y: auto;
+}
+
+.output-type-column {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.output-type-toggle {
+    color: var(--text-color); 
+    flex-shrink: 0; 
+}
+
+/* Styles for nested algorithm groups */
+.algorithm-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; 
+    margin-top: 10px; 
+    min-width: 0; 
+}
+
+.algorithm-group {
+    border: 1px solid var(--background-dark); 
+    border-radius: 5px;
+    padding: 8px;
+    background-color: var(--card-background); 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0; 
+}
+
+.algorithm-group .algorithm-group-toggle {
+    font-weight: 600; 
+    color: var(--primary-color);
+    flex-shrink: 0; 
+}
+
+.algorithm-group .group-separator {
+    border: none;
+    border-top: 1px dashed var(--border-light);
+    margin: 3px 0 8px 0;
+    flex-shrink: 0; 
+}
+
+.algorithm-group label {
+    padding-left: 15px; 
+    font-weight: 400; 
+    white-space: normal; 
+    word-break: break-word; 
+}
+
+/* Styles for the inner checkbox grid columns */
+.checkbox-grid-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    padding-top: 5px; 
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 400; 
+    margin-bottom: 0; 
+    cursor: pointer;
+    white-space: normal; 
+    word-break: break-word; 
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px; 
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0; 
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+
+/* --- File List Styling --- */
+
+.file-list-outer-wrapper {
+    min-height: 250px; 
+    display: flex;
+    flex-direction: column;
+    overflow: visible; 
+    flex-grow: 1;
+}
+
+.file-list-toggle-wrapper {
+    background-color: var(--background-dark);
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    z-index: 3;
+}
+
+.file-list-toggle {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.file-list-grid-container {
+    overflow-x: auto; 
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--background-light);
+}
+
+/* Defines the column structure for both header and rows */
+.file-list-header, .file-row {
+    display: grid;
+    grid-template-columns: 30px minmax(150px, 1.5fr) minmax(90px, 1fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr); 
+    gap: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    min-width: 650px; 
+}
+
+.file-list-header {
+    background-color: var(--primary-color);
+    color: var(--header-footer-text);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.header-cell {
+    padding: 0 5px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-list {
+    flex-grow: 1;
+    max-height: 750px; 
+    overflow-y: auto;
+    background-color: var(--card-background);
+}
+
+.file-row {
+    background-color: var(--card-background);
+    border-bottom: 1px solid var(--background-dark);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    align-items: center;
+}
+
+.file-row:last-child {
+    border-bottom: none;
+}
+
+.file-row:hover {
+    background-color: var(--background-dark);
+}
+
+/* Style for selected file rows */
+.file-row.selected {
+    background-color: var(--background-dark);
+    border-left: 5px solid var(--primary-color);
+}
+
+.file-row .row-cell {
+    padding: 8px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.file-row .checkbox-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file-row .download-link-cell {
+    display: none;
+}
+
+
+.no-results {
+    text-align: center;
+    color: var(--secondary-color);
+    font-style: italic;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 15px;
+    background-color: var(--background-light);
+}
+
+/* Download button for selected files */
+.download-button-container {
+    text-align: center;
+    margin-top: 20px;
+    flex-shrink: 0; 
+}
+
+#download-selected-btn {
+    background-color: var(--success-color);
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#download-selected-btn:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+#download-selected-btn:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.download-count {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 3px 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Footer Section */
+.footer {
+    background-color: var(--header-footer-bg); 
+    color: var(--header-footer-text);
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 0.9em;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    margin-top: auto;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column; 
+    gap: 30px; 
+    width: 100%; 
+    max-width: 1200px; 
+    margin-bottom: 20px; 
+}
+
+/* Individual footer columns */
+.footer-column {
+    flex: 1; 
+    padding: 0 10px; 
+}
+
+/* Align specific columns as desired */
+.footer-column.left {
+    text-align: justify;
+}
+
+.footer-column.center {
+    text-align: justify;
+}
+
+.footer-column.right {
+    text-align: justify;
+}
+
+/* Adjust pre tag for better display in columns */
+.footer-column pre {
+    text-align: justify;
+    /* white-space: pre-wrap; */
+    /* word-break: break-word; */
+    font-size: 0.8em;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow-x: auto; 
+}
+
+/* Media query for larger screens (e.g., 768px and up) */
+@media (min-width: 900px) {
+    .footer-content {
+        flex-direction: row; 
+        justify-content: space-between;
+    }
+}
+/* --- Responsive Adjustments for Main Content Layout --- */
+
+/* Small Screens (default/mobile first - up to 767px) */
+/* All sections stack vertically. */
+.content-card {
+    padding: 25px;
+    gap: 30px;
+}
+
+.header h1 {
+    font-size: 2em;
+}
+
+.header p {
+    font-size: 1em;
+}
+
+.section-title {
+    font-size: 1.3em;
+}
+
+/* Ensure these main sections take up their content's height */
+.generic-selection-section,
+.specific-characteristics-section,
+.results-section {
+    padding: 25px;
+    min-height: auto; 
+    max-height: none; 
+    overflow-y: visible; 
+    grid-row-end: span 1;
+    min-width: 0; 
+}
+
+/* Checkbox-group needs its max-height for inner scrolling */
+.checkbox-group {
+    padding: 12px;
+    gap: 8px;
+    max-height: 300px; 
+    overflow-y: auto;
+    min-width: 0;
+}
+
+/* Style for the survival rate grid */
+.survival-rate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; 
+    padding-top: 5px; 
+}
+
+/* Adjust checkbox-group max-height if the new grid layout causes issues with existing height */
+/* You might need to adjust this value based on how the 3x3 grid fits */
+.checkbox-group#survival-rate-checkboxes {
+    max-height: 350px; 
+    overflow-y: auto; 
+    flex-direction: column; 
+}
+
+/* Ensure individual labels within the grid also behave as grid items */
+.survival-rate-grid label {
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start; 
+    padding: 5px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 4px;
+    background-color: var(--card-background); 
+    white-space: normal; 
+    word-break: break-word;
+}
+
+/* Adjust checkbox size within the grid if needed */
+.survival-rate-grid input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+
+.checkbox-group label {
+    font-size: 1em;
+    white-space: normal; 
+    word-break: break-word; 
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+/* File list table adjustments for small screens */
+.file-list-grid-columns {
+    grid-template-columns: 30px minmax(100px, 1.5fr) minmax(80px, 1fr) minmax(90px, 1.2fr) minmax(80px, 1fr) minmax(80px, 1fr); 
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 0.9em;
+    min-width: 550px; 
+}
+
+
+.file-list-header, .file-row .row-cell {
+    padding: 8px 5px;
+}
+
+.download-button-container #download-selected-btn {
+    font-size: 1.1em;
+    padding: 15px 30px;
+}
+
+/* Ensure Dominant/Non-Dominant are one column on small screens */
+.output-type-columns {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+    min-width: 0; 
+}
+
+.output-type-column {
+    min-width: 0; 
+}
+
+
+/* Medium Screens (768px to 1199px) - First two horizontal, third below */
+@media (min-width: 900px) {
+    .content-card {
+        grid-template-columns: auto auto; 
+        max-width: 1200px; 
+        justify-content: center; 
+        grid-template-rows: auto auto; 
+    }
+
+    /* Make the results section span both columns in its row */
+    .results-section {
+        grid-column: 1 / -1; 
+        min-width: 0; 
+        grid-row: 2; 
+        min-height: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* For the Generic and Specific sections, allow them to take full height in their grid cells */
+    .generic-selection-section,
+    .specific-characteristics-section {
+        height: 100%;
+        min-width: 0;
+        min-height: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* File list columns can now use their full definition */
+    .file-list-grid-columns {
+        grid-template-columns: 30px minmax(150px, 1.5fr) minmax(90px, 1fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr); 
+        font-size: 1em; 
+        min-width: 600px; 
+    }
+
+    /* Revert .checkbox-grid-columns to 1 column on medium screens for stacking */
+    .checkbox-grid-columns {
+        grid-template-columns: 1fr; 
+    }
+
+
+    /* Ensure Dominant/Non-Dominant are one column on medium screens */
+    .output-type-columns {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+}
+
+
+/* Large Screens (1200px and up) - All 3 sections horizontal */
+@media (min-width: 1200px) {
+    .content-card {
+        grid-template-columns: minmax(400px, 1.5fr) minmax(350px, 1.2fr) minmax(500px, 2.5fr); 
+        max-width: 1920px; 
+        justify-content: center;
+        grid-template-rows: auto; 
+    }
+
+    /* Reset results section to take only one column */
+    .results-section {
+        grid-column: auto; 
+        min-width: 0;
+        grid-row: auto; 
+        min-height: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* Ensure all three sections take full height */
+    .generic-selection-section,
+    .specific-characteristics-section {
+        height: 100%;
+        min-width: 0;
+        min-height: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* File list columns can now use their full definition */
+    .file-list-grid-columns {
+        grid-template-columns: 30px minmax(150px, 1.5fr) minmax(90px, 1fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr); 
+        min-width: 650px; 
+    }
+
+    /* Ensure .checkbox-grid-columns remain two columns on large screens */
+    .checkbox-grid-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Ensure Dominant/Non-Dominant are two columns on large screens */
+    .output-type-columns {
+        grid-template-columns: 1fr 1fr; 
+        gap: 15px;
+        min-width: 0;
+    }
+
+    .output-type-column {
+        min-width: 0; 
+    }
+}

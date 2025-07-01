@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QMutBench</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Welcome to QMutBench: A Quantum Circuit Mutants Benchmark!</h1>
+        <p>Please select your criteria below to get the desired mutants.</p>
+    </header>
+
+    <main class="main-content">
+        <div class="content-card">
+            <section class="generic-selection-section" id="generic-section">
+                <h2 class="section-title">Generic Selection</h2>
+                <div class="selection-grid">
+                    <div class="filter-group">
+                        <label>Origin Quantum Programs:</label>
+                        <div class="checkbox-group" id="program-origin-checkboxes">
+                            <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox" id="toggle-all-program-origins"> Select All</label>
+                            <hr class="toggle-separator">
+
+                            <div class="output-type-columns">
+                                <div class="output-type-column">
+                                    <label class="select-all-toggle output-type-toggle"><input type="checkbox" class="toggle-all-checkbox" data-output-type="yes"> Dominant Output</label>
+                                    <hr class="column-separator">
+                                    <div class="algorithm-groups" id="dominant-output-groups">
+                                        </div>
+                                </div>
+
+                                <div class="output-type-column">
+                                    <label class="select-all-toggle output-type-toggle"><input type="checkbox" class="toggle-all-checkbox" data-output-type="no"> Non-Dominant Output</label>
+                                    <hr class="column-separator">
+                                    <div class="algorithm-groups" id="non-dominant-output-groups">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Qubit Range:</label>
+                        <div style="display: flex; gap: 10px;">
+                            <select id="min-qubit" name="min-qubit">
+                                <option value="">Min</option>
+                                </select>
+                            <select id="max-qubit" name="max-qubit">
+                                <option value="">Max</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Survival Rate Wanted:</label>
+                        <div class="checkbox-group" id="survival-rate-checkboxes">
+                            <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox"> Select All</label>
+                            <hr class="toggle-separator">
+                            <div class="survival-rate-grid"> <label><input type="checkbox" name="survival-rate" value="0-10"> 0-10%</label>
+                                <label><input type="checkbox" name="survival-rate" value="11-20"> 11-20%</label>
+                                <label><input type="checkbox" name="survival-rate" value="21-30"> 21-30%</label>
+                                <label><input type="checkbox" name="survival-rate" value="31-40"> 31-40%</label>
+                                <label><input type="checkbox" name="survival-rate" value="41-50"> 41-50%</label>
+                                <label><input type="checkbox" name="survival-rate" value="51-60"> 51-60%</label>
+                                <label><input type="checkbox" name="survival-rate" value="61-70"> 61-70%</label>
+                                <label><input type="checkbox" name="survival-rate" value="71-80"> 71-80%</label>
+                                <label><input type="checkbox" name="survival-rate" value="81-90"> 81-90%</label>
+                                <label><input type="checkbox" name="survival-rate" value="91-100"> 91-100%</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<small>*The number of qubits available for each algorithm are limited by the specification in the empirical evaluation study.</small>
+            </section>
+
+            <section class="specific-characteristics-section" id="characteristics-to-avoid-section">
+                <h2 class="section-title">Characteristics to Avoid</h2>
+                <div class="selection-grid">
+                    <div class="filter-group">
+                        <label>Quantum Gates to Avoid:</label>
+                        <div class="checkbox-group" id="quantum-gates-checkboxes">
+                            <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox"> Select All</label>
+                            <hr class="toggle-separator">
+                            <div class="checkbox-grid-columns">
+                                <label><input type="checkbox" name="quantum-gate" value="h"> H</label>
+                                <label><input type="checkbox" name="quantum-gate" value="x"> X</label>
+                                <label><input type="checkbox" name="quantum-gate" value="y"> Y</label>
+                                <label><input type="checkbox" name="quantum-gate" value="z"> Z</label>
+                                <label><input type="checkbox" name="quantum-gate" value="p"> P</label>
+                                <label><input type="checkbox" name="quantum-gate" value="t"> T</label>
+                                <label><input type="checkbox" name="quantum-gate" value="s"> S</label>
+                                <label><input type="checkbox" name="quantum-gate" value="id"> ID</label>
+                                <label><input type="checkbox" name="quantum-gate" value="rx"> RX</label>
+                                <label><input type="checkbox" name="quantum-gate" value="ry"> RY</label>
+                                <label><input type="checkbox" name="quantum-gate" value="rz"> RZ</label>
+                                <label><input type="checkbox" name="quantum-gate" value="sx"> SX</label>
+                                <label><input type="checkbox" name="quantum-gate" value="cx"> CX</label>
+                                <label><input type="checkbox" name="quantum-gate" value="cz"> CZ</label>
+                                <label><input type="checkbox" name="quantum-gate" value="rxx"> RXX</label>
+                                <label><input type="checkbox" name="quantum-gate" value="rzz"> RZZ</label>
+                                <label><input type="checkbox" name="quantum-gate" value="swap"> SWAP</label>
+                                <label><input type="checkbox" name="quantum-gate" value="ccx"> CCX</label>
+                                <label><input type="checkbox" name="quantum-gate" value="cswap"> CSWAP</label>
+                            </div> </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Positions to Avoid (Circuit Depth %):</label>
+                        <div class="checkbox-group" id="positions-checkboxes">
+                            <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox"> Select All</label>
+                            <hr class="toggle-separator">
+                            <div class="checkbox-grid-columns">
+                                <label><input type="checkbox" name="position" value="0-10"> 0-10%</label>
+                                <label><input type="checkbox" name="position" value="11-20"> 11-20%</label>
+                                <label><input type="checkbox" name="position" value="21-30"> 21-30%</label>
+                                <label><input type="checkbox" name="position" value="31-40"> 31-40%</label>
+                                <label><input type="checkbox" name="position" value="41-50"> 41-50%</label>
+                                <label><input type="checkbox" name="position" value="51-60"> 51-60%</label>
+                                <label><input type="checkbox" name="position" value="61-70"> 61-70%</label>
+                                <label><input type="checkbox" name="position" value="71-80"> 71-80%</label>
+                                <label><input type="checkbox" name="position" value="81-90"> 81-90%</label>
+                                <label><input type="checkbox" name="position" value="91-100"> 91-100%</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Mutation Operators to Avoid:</label>
+                        <div class="checkbox-group" id="mutation-operators-checkboxes">
+                            <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox"> Select All</label>
+                            <hr class="toggle-separator">
+                            <label><input type="checkbox" name="mutation-operator" value="Add"> Add Operator</label>
+                            <label><input type="checkbox" name="mutation-operator" value="Remove"> Remove Operator</label>
+                            <label><input type="checkbox" name="mutation-operator" value="Replace"> Replace Operator</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="results-section" id="results-section">
+                <h2 class="section-title">Available Files</h2>
+
+                <div class="file-list-outer-wrapper">
+                    <div class="file-list-toggle-wrapper">
+                         <label class="select-all-toggle file-list-toggle"><input type="checkbox" id="toggle-all-files" class="toggle-all-checkbox"> Select All Files</label>
+                    </div>
+
+                    <div class="file-list-grid-container">
+                        <div class="file-list-header file-list-grid-columns">
+                            <div class="header-cell checkbox-cell"></div>
+                            <div class="header-cell">Algorithm</div>
+                            <div class="header-cell">Position</div>
+                            <div class="header-cell">Operation</div>
+                            <div class="header-cell">Gate</div>
+                            <div class="header-cell">Survival Rate</div>
+                        </div>
+
+                        <div id="file-list" class="file-list">
+                            </div>
+                    </div>
+                </div>
+
+                <p id="no-results-message" class="no-results" style="display: none;">No files match your current selection. Please adjust your filters.</p>
+
+                <div class="download-button-container">
+                    <button id="download-selected-btn" disabled>
+                        Download Selected Files
+					</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column left">
+			    <h3>Reference</h3>
+                <p>
+                    The dataset's foundation is built upon knowledge derived from a previous empirical study on quantum circuit mutants <a href="https://link.springer.com/article/10.1007/s10664-025-10643-z" target="_blank" rel="noopener noreferrer">"Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.</a> 
+                </p>
+            </div>
+            <div class="footer-column centre">
+                <p>If you use this page in your research, please cite it as:</p>
+                <pre>
+                    @online{QMutBench,
+                      author = "Mendiluze Usandizaga, Eñaut",
+                      title = "QMutBench: A Quantum Circuit Mutants Benchmark",
+                      year = 2025,
+                      url = ""
+                    }
+                </pre>
+            </div>
+            <div class="footer-column right">
+                <h3>Acknowledgments</h3>
+				<p>
+					We extend our gratitude to <a href="https://www.cda.cit.tum.de/mqtbench/" target="_blank" rel="noopener noreferrer">MQTbench</a>, where we sourced the initial original quantum programs for this benchmark.
+				</p>
+				<h3>Contact</h3>
+                <p>For support, please email us at: <a href="mailto:mendienaut@gmail.com">mendienaut@gmail.com</a></p>
+				<p>
+                    <a href="https://github.com/EnautMendi" target="_blank" rel="noopener noreferrer">GitHub</a><br>
+                    <a href="https://www.linkedin.com/in/e%C3%B1aut-mendiluze-9631a9226/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 QMutBench. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="http://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
