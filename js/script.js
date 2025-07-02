@@ -490,16 +490,70 @@ async function filterAndRenderFiles() {
     console.log("Total files rendered:", filteredData.length);
 }
 
+/**
+ * Calculates the actual number of QASM files (mutants + original programs) that would be downloaded.
+ * This logic is similar to the beginning of downloadSelectedFiles, but only for counting.
+ * @returns {number} The total count of QASM files to be downloaded.
+ */
+function calculateDownloadableFileCount() {
+    const selectedCheckboxes = fileListContainer.querySelectorAll('.file-select-checkbox:checked');
+    if (selectedCheckboxes.length === 0) {
+        return 0;
+    }
+
+    const mutantCombinations = new Set();
+    const originalProgramKeys = new Set(); // To track unique original programs
+
+    selectedCheckboxes.forEach(checkbox => {
+        const algo = checkbox.dataset.algorithm;
+        const gate = checkbox.dataset.gate;
+        const position = checkbox.dataset.position;
+        const operation = checkbox.dataset.operation;
+        mutantCombinations.add(`${algo}|${gate}|${position}|${operation}`);
+    });
+
+    let estimatedFileCount = 0;
+
+    // Simulate the file identification from allMutantsData
+    allMutantsData.forEach(row => {
+        const algo = row.algorithm ? String(row.algorithm).trim() : '';
+        const gate = row.gate ? String(row.gate).trim() : '';
+        const position = row.position ? String(row.position).trim() : '';
+        const operation = row.operation ? String(row.operation).trim() : '';
+        const qubits = row.qubits;
+
+        const currentMutantCombination = `${algo}|${gate}|${position}|${operation}`;
+
+        if (mutantCombinations.has(currentMutantCombination)) {
+            // Count mutant file
+            estimatedFileCount++;
+
+            // Count corresponding original program if not already counted
+            if (qubits !== undefined) {
+                const originalProgramKey = `${algo}|${qubits}`;
+                if (!originalProgramKeys.has(originalProgramKey)) {
+                    estimatedFileCount++;
+                    originalProgramKeys.add(originalProgramKey);
+                }
+            }
+        }
+    });
+    return estimatedFileCount;
+}
+
+
 // --- File List Selection and Download Button ---
 function updateSelectedCount() {
-    const selectedCheckboxes = fileListContainer.querySelectorAll('.file-select-checkbox:checked');
-    const count = selectedCheckboxes.length;
-    downloadButton.disabled = count === 0;
+    const selectedRowsCount = fileListContainer.querySelectorAll('.file-select-checkbox:checked').length;
+    const actualDownloadCount = calculateDownloadableFileCount(); // Get the actual number of QASM files
 
-    // Update the button text to show the count
-    downloadButton.textContent = `Download Selected Files (${count})`;
-    if (count === 0) {
-        downloadButton.textContent = 'Download Selected Files'; // Reset text if no files selected
+    downloadButton.disabled = selectedRowsCount === 0;
+
+    // Update the button text to show the actual download count
+    if (actualDownloadCount > 0) {
+        downloadButton.textContent = `Download Selected Files (${actualDownloadCount})`;
+    } else {
+        downloadButton.textContent = 'Download Selected Files'; // Reset text if no files to download
     }
 
 
@@ -656,7 +710,6 @@ async function downloadSelectedFiles() {
     if (selectedCheckboxes.length === 0) {
         alert('Please select at least one file to download.');
         downloadButton.disabled = false;
-        downloadButton.textContent = 'Download Selected Files';
         updateSelectedCount(); // Revert button text
         return;
     }
@@ -723,7 +776,6 @@ async function downloadSelectedFiles() {
     if (filesToFetch.length === 0) {
         alert('No corresponding mutant or original files found for the selected characteristics.');
         downloadButton.disabled = false;
-        downloadButton.textContent = 'Download Selected Files';
         updateSelectedCount(); // Revert button text
         return;
     }
@@ -751,7 +803,6 @@ async function downloadSelectedFiles() {
     if (downloadedCount === 0) {
         alert('No files were successfully downloaded. Please check console for errors.');
         downloadButton.disabled = false;
-        downloadButton.textContent = 'Download Selected Files';
         updateSelectedCount(); // Revert button text
         return;
     }
@@ -765,7 +816,6 @@ async function downloadSelectedFiles() {
         alert('An error occurred while zipping or saving files. Please try again.');
     } finally {
         downloadButton.disabled = false;
-        downloadButton.textContent = 'Download Selected Files';
         updateSelectedCount(); // Final update to show correct count after download
     }
 }
