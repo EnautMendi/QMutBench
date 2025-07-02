@@ -530,7 +530,7 @@ function renderFiles(files) {
 
     if (files.length === 0) {
         document.getElementById('no-results-message').style.display = 'block';
-        if (toggleAllFilesCheckbox) {
+        if (toggleAllFilesCheckbox) { 
             toggleAllFilesCheckbox.disabled = true;
             toggleAllFilesCheckbox.checked = false;
             toggleAllFilesCheckbox.indeterminate = false;
@@ -540,21 +540,6 @@ function renderFiles(files) {
     }
 
     files.forEach(file => {
-        // Calculate files count for the current row
-        let filesCount = 0;
-
-        // Find all entries in 'allMutantsData' that match the current grouped 'file' entry.
-        const matchingMutants = allMutantsData.filter(mutantRow => {
-            return mutantRow.algorithm === file.algorithm &&
-                   String(mutantRow.position).trim() === String(file.position).trim() && // Ensure type consistency
-                   mutantRow.operation === file.operation &&
-                   mutantRow.gate === file.gate;
-        });
-
-        // The count will simply be the number of matching mutant files found.
-        filesCount = matchingMutants.length;
-
-
         const fileRow = document.createElement('div');
         fileRow.classList.add('file-row');
         fileRow.classList.add('file-list-grid-columns');
@@ -573,7 +558,7 @@ function renderFiles(files) {
             <div class="row-cell">${file.operation || 'N/A'}</div>
             <div class="row-cell">${file.gate || 'N/A'}</div>
             <div class="row-cell">${file.survival_rate || 'N/A'}</div>
-            <div class="row-cell">${filesCount}</div> `;
+        `;
         fileListContainer.appendChild(fileRow);
     });
 
