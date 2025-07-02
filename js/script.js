@@ -1,13 +1,13 @@
 // --- Global Data Variables ---
-let allFilesData = []; 
-let allMutantsData = []; 
+let allFilesData = [];
+let allMutantsData = [];
 
 // --- References to HTML Elements ---
 const genericSection = document.getElementById('generic-section');
 const characteristicsToAvoidSection = document.getElementById('characteristics-to-avoid-section');
 const resultsSection = document.getElementById('results-section');
 
-let programOriginCheckboxes; 
+let programOriginCheckboxes;
 let toggleAllProgramOrigins;
 
 const minQubitDropdown = document.getElementById('min-qubit');
@@ -27,7 +27,7 @@ const mutationOperatorsCheckboxes = document.querySelectorAll('#mutation-operato
 const toggleAllMutationOperators = document.querySelector('#mutation-operators-checkboxes .toggle-all-checkbox');
 
 const fileListContainer = document.getElementById('file-list');
-let toggleAllFilesCheckbox = document.getElementById('toggle-all-files'); 
+let toggleAllFilesCheckbox = document.getElementById('toggle-all-files');
 const downloadButton = document.getElementById('download-selected-btn');
 // const selectedCountSpan = document.getElementById('selected-count');
 
@@ -79,7 +79,7 @@ function hasSelection(sectionElement) {
 }
 
 function updateSectionStates() {
-    genericSection.classList.remove('locked-section'); 
+    genericSection.classList.remove('locked-section');
     const programOriginHasSelection = hasSelection(document.getElementById('program-origin-checkboxes'));
     const survivalRateHasSelection = hasSelection(document.getElementById('survival-rate-checkboxes'));
 
@@ -87,14 +87,14 @@ function updateSectionStates() {
     const qubitRangeHasSelection = true;
 
 
-    
+
     if (programOriginHasSelection && survivalRateHasSelection && qubitRangeHasSelection) {
         characteristicsToAvoidSection.classList.remove('locked-section');
         if (resultsSection.classList.contains('locked-section')) {
             resultsSection.classList.remove('locked-section');
-            filterAndRenderFiles(); 
+            filterAndRenderFiles();
         } else {
-            filterAndRenderFiles(); 
+            filterAndRenderFiles();
         }
     } else {
         characteristicsToAvoidSection.classList.add('locked-section');
@@ -155,7 +155,7 @@ function setupToggleAllNone(toggleCheckboxElement, targetCheckboxes, isFileListT
             const allChecked = Array.from(targetCheckboxes).every(cb => cb.checked);
             const anyChecked = Array.from(targetCheckboxes).some(cb => cb.checked);
 
-            if (allChecked && targetCheckboxes.length > 0) { 
+            if (allChecked && targetCheckboxes.length > 0) {
                 toggleCheckboxElement.checked = true;
                 toggleCheckboxElement.indeterminate = false;
             } else if (anyChecked) {
@@ -178,7 +178,7 @@ function setupToggleAllNone(toggleCheckboxElement, targetCheckboxes, isFileListT
 
     const initialAllChecked = Array.from(targetCheckboxes).every(cb => cb.checked);
     const initialAnyChecked = Array.from(targetCheckboxes).some(cb => cb.checked);
-    if (initialAllChecked && targetCheckboxes.length > 0) { 
+    if (initialAllChecked && targetCheckboxes.length > 0) {
         toggleCheckboxElement.checked = true;
         toggleCheckboxElement.indeterminate = false;
     } else if (initialAnyChecked) {
@@ -252,15 +252,15 @@ function renderProgramOriginCheckboxes() {
     setupToggleAllNone(toggleAllProgramOrigins, programOriginCheckboxes, false);
 
     document.querySelectorAll('.output-type-toggle input.toggle-all-checkbox').forEach(outputToggleInput => {
-        const outputType = outputToggleInput.dataset.outputType; 
+        const outputType = outputToggleInput.dataset.outputType;
         const targetCheckboxes = document.querySelectorAll(`input[name="program-origin"][data-output-type="${outputType}"]`);
         console.log(`Setting up output type toggle (${outputType}):`, outputToggleInput, "targeting:", targetCheckboxes);
-        setupToggleAllNone(outputToggleInput, targetCheckboxes, false); 
+        setupToggleAllNone(outputToggleInput, targetCheckboxes, false);
     });
 
     document.querySelectorAll('.algorithm-group-toggle input.toggle-all-checkbox').forEach(algoGroupToggleInput => {
-        const outputType = algoGroupToggleInput.dataset.outputType; 
-        const algorithmGroup = algoGroupToggleInput.dataset.algorithmGroup; 
+        const outputType = algoGroupToggleInput.dataset.outputType;
+        const algorithmGroup = algoGroupToggleInput.dataset.algorithmGroup;
         const targetCheckboxes = document.querySelectorAll(`input[name="program-origin"][data-output-type="${outputType}"][data-algorithm-group="${algorithmGroup}"]`);
         console.log(`Setting up algo group toggle (${algorithmGroup}):`, algoGroupToggleInput, "targeting:", targetCheckboxes);
         setupToggleAllNone(algoGroupToggleInput, targetCheckboxes, false);
@@ -310,7 +310,7 @@ function populateQubitRangeDropdowns() {
         const maxVal = parseInt(maxQubitDropdown.value);
 
         if (!isNaN(minVal) && !isNaN(maxVal) && maxVal < minVal) {
-            minQubitDropdown.value = maxVal; 
+            minQubitDropdown.value = maxVal;
         }
         Array.from(minQubitDropdown.options).forEach(option => {
             if (option.value === "") return;
@@ -395,7 +395,7 @@ async function filterAndRenderFiles() {
 
     if (allFilesData.length === 0) {
         console.warn("CSV data (grouped_data_SR.csv) not yet loaded. Skipping filter and render.");
-        renderFiles([]); 
+        renderFiles([]);
         return;
     }
 
@@ -417,20 +417,20 @@ async function filterAndRenderFiles() {
             fileQubitValues = JSON.parse(file.qubit_values);
             if (!Array.isArray(fileQubitValues)) {
                 console.warn(`qubit_values for file ${file.filename} is not an array after parsing:`, file.qubit_values);
-                return false; 
+                return false;
             }
         } catch (e) {
             console.warn(`Error parsing qubit_values for file ${file.filename}:`, file.qubit_values, e);
-            return false; 
+            return false;
         }
 
-        const effectiveMin = filters.minQubits !== null ? filters.minQubits : 2; 
+        const effectiveMin = filters.minQubits !== null ? filters.minQubits : 2;
         const effectiveMax = filters.maxQubits !== null ? filters.maxQubits : 30;
 
         return fileQubitValues.some(qubitVal => {
             const numQubitVal = parseInt(qubitVal);
             if (isNaN(numQubitVal)) {
-                return false; 
+                return false;
             }
             return numQubitVal >= effectiveMin && numQubitVal <= effectiveMax;
         });
@@ -467,7 +467,7 @@ async function filterAndRenderFiles() {
             const filePositionNum = parseInt(file.position);
 
             if (isNaN(filePositionNum)) {
-                return false; 
+                return false;
             }
 
             const isInAnyAvoidedBin = filters.avoidPositions.some(avoidBin =>
@@ -496,6 +496,13 @@ function updateSelectedCount() {
     const count = selectedCheckboxes.length;
     downloadButton.disabled = count === 0;
 
+    // Update the button text to show the count
+    downloadButton.textContent = `Download Selected Files (${count})`;
+    if (count === 0) {
+        downloadButton.textContent = 'Download Selected Files'; // Reset text if no files selected
+    }
+
+
     fileListContainer.querySelectorAll('.file-row').forEach(row => {
         const checkbox = row.querySelector('.file-select-checkbox');
         if (checkbox && checkbox.checked) {
@@ -509,7 +516,7 @@ function updateSelectedCount() {
     const allChecked = Array.from(allVisibleFileCheckboxes).every(cb => cb.checked);
     const anyChecked = Array.from(allVisibleFileCheckboxes).some(cb => cb.checked);
 
-    if (allVisibleFileCheckboxes.length > 0 && allChecked) { 
+    if (allVisibleFileCheckboxes.length > 0 && allChecked) {
         toggleAllFilesCheckbox.checked = true;
         toggleAllFilesCheckbox.indeterminate = false;
     } else if (anyChecked) {
@@ -530,7 +537,7 @@ function renderFiles(files) {
 
     if (files.length === 0) {
         document.getElementById('no-results-message').style.display = 'block';
-        if (toggleAllFilesCheckbox) { 
+        if (toggleAllFilesCheckbox) {
             toggleAllFilesCheckbox.disabled = true;
             toggleAllFilesCheckbox.checked = false;
             toggleAllFilesCheckbox.indeterminate = false;
@@ -562,10 +569,17 @@ function renderFiles(files) {
         fileListContainer.appendChild(fileRow);
     });
 
+    // Re-select the toggleAllFilesCheckbox and attach event listeners to newly rendered checkboxes
     toggleAllFilesCheckbox = document.getElementById('toggle-all-files');
     const newFileCheckboxes = fileListContainer.querySelectorAll('.file-select-checkbox');
+
+    // Attach event listeners to each individual file checkbox to update the count
+    newFileCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedCount);
+    });
+
     setupToggleAllNone(toggleAllFilesCheckbox, newFileCheckboxes, true);
-    updateSelectedCount();
+    updateSelectedCount(); // Initial update after rendering files
 }
 
 /**
@@ -588,7 +602,7 @@ function loadCsvFile(csvFilePath, dataArray, dataName, callback = () => {}) {
                     document.getElementById('no-results-message').textContent = `Error loading ${dataName}. Please check console.`;
                     document.getElementById('no-results-message').style.display = 'block';
                 }
-                dataArray.length = 0; 
+                dataArray.length = 0;
             } else {
                 dataArray.length = 0;
 
@@ -635,21 +649,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateSectionStates();
 });
 async function downloadSelectedFiles() {
-    downloadButton.disabled = true; 
-    downloadButton.textContent = 'Preparing Download...'; 
+    downloadButton.disabled = true;
+    downloadButton.textContent = 'Preparing Download...';
 
     const selectedCheckboxes = fileListContainer.querySelectorAll('.file-select-checkbox:checked');
     if (selectedCheckboxes.length === 0) {
         alert('Please select at least one file to download.');
         downloadButton.disabled = false;
         downloadButton.textContent = 'Download Selected Files';
+        updateSelectedCount(); // Revert button text
         return;
     }
 
     const zip = new JSZip();
-    const mutantCombinations = new Set(); 
+    const mutantCombinations = new Set();
     const originalProgramKeys = new Set();
-	
+
     selectedCheckboxes.forEach(checkbox => {
         const algo = checkbox.dataset.algorithm;
         const gate = checkbox.dataset.gate;
@@ -660,8 +675,8 @@ async function downloadSelectedFiles() {
 
     console.log("Mutant Combinations from selected files:", Array.from(mutantCombinations));
 
-    let filesToFetch = []; 
-	
+    let filesToFetch = [];
+
     allMutantsData.forEach(row => {
         const algo = row.algorithm ? String(row.algorithm).trim() : '';
         const gate = row.gate ? String(row.gate).trim() : '';
@@ -671,29 +686,29 @@ async function downloadSelectedFiles() {
         const currentMutantCombination = `${algo}|${gate}|${position}|${operation}`;
 
         if (mutantCombinations.has(currentMutantCombination)) {
-            const qubits = row.qubits; 
-            const positionInt = row.Position_int; 
+            const qubits = row.qubits;
+            const positionInt = row.Position_int;
 
             if (qubits === undefined || positionInt === undefined) {
                 console.warn(`Skipping mutant file generation for combination ${currentMutantCombination}: 'qubits' or 'Position_int' missing in allMutantsData row.`, row);
             } else {
-				if (operation === "Replace") {
-					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inPositionOfGate_${positionInt}.qasm`;
-					filesToFetch.push(mutantFilePath);
-				} else if (operation === "Remove") {
-					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${positionInt}_.qasm`;
-					filesToFetch.push(mutantFilePath);
-				} else {
-					const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inGap_${positionInt}_.qasm`;
-					filesToFetch.push(mutantFilePath);
-				}
+                if (operation === "Replace") {
+                    const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inPositionOfGate_${positionInt}.qasm`;
+                    filesToFetch.push(mutantFilePath);
+                } else if (operation === "Remove") {
+                    const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${positionInt}_.qasm`;
+                    filesToFetch.push(mutantFilePath);
+                } else {
+                    const mutantFilePath = `Mutated_programs/Mutants_${algo}_${qubits}_qubits/${operation}Gate_${gate}_inGap_${positionInt}_.qasm`;
+                    filesToFetch.push(mutantFilePath);
+                }
             }
 
             if (qubits !== undefined) {
                 const originalProgramFilename = `${algo}_${qubits}_qubits.qasm`;
                 const originalProgramKey = `${algo}|${qubits}`;
                 if (!originalProgramKeys.has(originalProgramKey)) {
-                    const originalFilePath = `Origin_programs/${originalProgramFilename}`; 
+                    const originalFilePath = `Origin_programs/${originalProgramFilename}`;
                     filesToFetch.push(originalFilePath);
                     originalProgramKeys.add(originalProgramKey);
                 }
@@ -709,6 +724,7 @@ async function downloadSelectedFiles() {
         alert('No corresponding mutant or original files found for the selected characteristics.');
         downloadButton.disabled = false;
         downloadButton.textContent = 'Download Selected Files';
+        updateSelectedCount(); // Revert button text
         return;
     }
 
@@ -720,7 +736,7 @@ async function downloadSelectedFiles() {
 
             if (!response.ok) {
                 console.warn(`Failed to fetch ${fileUrl}: ${response.status} ${response.statusText}`);
-                continue; 
+                continue;
             }
 
             const fileBlob = await response.blob();
@@ -736,12 +752,13 @@ async function downloadSelectedFiles() {
         alert('No files were successfully downloaded. Please check console for errors.');
         downloadButton.disabled = false;
         downloadButton.textContent = 'Download Selected Files';
+        updateSelectedCount(); // Revert button text
         return;
     }
 
     try {
         const content = await zip.generateAsync({ type: "blob" });
-        saveAs(content, "selected_quantum_programs.zip"); 
+        saveAs(content, "selected_quantum_programs.zip");
         alert(`Successfully downloaded ${downloadedCount} file(s) in "selected_quantum_programs.zip".`);
     } catch (error) {
         console.error("Error generating or saving zip:", error);
@@ -749,5 +766,6 @@ async function downloadSelectedFiles() {
     } finally {
         downloadButton.disabled = false;
         downloadButton.textContent = 'Download Selected Files';
+        updateSelectedCount(); // Final update to show correct count after download
     }
 }
