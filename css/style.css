@@ -356,6 +356,8 @@ select:focus, input[type="text"]:focus {
     border: 1px solid var(--border-color);
     border-radius: 5px;
     background-color: var(--background-light);
+	overflow-y: auto;
+    max-height: 750px;
 }
 
 /* Defines the column structure for both header and rows */
@@ -389,8 +391,6 @@ select:focus, input[type="text"]:focus {
 
 .file-list {
     flex-grow: 1;
-    max-height: 750px; 
-    overflow-y: auto;
     background-color: var(--card-background);
 }
 
