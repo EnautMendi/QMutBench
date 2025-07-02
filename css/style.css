@@ -363,11 +363,11 @@ select:focus, input[type="text"]:focus {
 /* Defines the column structure for both header and rows */
 .file-list-header, .file-row {
     display: grid;
-    grid-template-columns: 30px minmax(150px, 1.5fr) minmax(90px, 1fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr); 
+    grid-template-columns: 30px minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(90px, 1fr) minmax(80px, 1fr); 
     gap: 10px;
     padding-right: 10px;
     padding-left: 10px;
-    min-width: 650px; 
+    min-width: 600px; 
 }
 
 .file-list-header {
@@ -639,7 +639,7 @@ select:focus, input[type="text"]:focus {
 
 /* File list table adjustments for small screens */
 .file-list-grid-columns {
-    grid-template-columns: 30px minmax(100px, 1.5fr) minmax(80px, 1fr) minmax(90px, 1.2fr) minmax(80px, 1fr) minmax(80px, 1fr); 
+    grid-template-columns: 30px minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(90px, 1fr) minmax(80px, 1fr); 
     padding-left: 10px;
     padding-right: 10px;
     font-size: 0.9em;
@@ -700,7 +700,7 @@ select:focus, input[type="text"]:focus {
 
     /* File list columns can now use their full definition */
     .file-list-grid-columns {
-        grid-template-columns: 30px minmax(150px, 1.5fr) minmax(90px, 1fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr); 
+        grid-template-columns: 30px minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(90px, 1fr) minmax(80px, 1fr); 
         font-size: 1em; 
         min-width: 600px; 
     }
@@ -751,7 +751,7 @@ select:focus, input[type="text"]:focus {
 
     /* File list columns can now use their full definition */
     .file-list-grid-columns {
-        grid-template-columns: 30px minmax(150px, 1.5fr) minmax(90px, 1fr) minmax(110px, 1.2fr) minmax(90px, 1fr) minmax(90px, 1fr); 
+        grid-template-columns: 30px minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(90px, 1fr) minmax(80px, 1fr); 
         min-width: 650px; 
     }
 
