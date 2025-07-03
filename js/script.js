@@ -369,8 +369,7 @@ function getSelectedFilters() {
 
     positionsCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            const [min, max] = checkbox.value.split('-').map(Number);
-            filters.avoidPositions.push({ min, max });
+            filters.avoidPositions.push(checkbox.value);
         }
     });
 
@@ -412,28 +411,10 @@ async function filterAndRenderFiles() {
     }
 
     filteredData = filteredData.filter(file => {
-        let fileQubitValues;
-        try {
-            fileQubitValues = JSON.parse(file.qubit_values);
-            if (!Array.isArray(fileQubitValues)) {
-                console.warn(`qubit_values for file ${file.filename} is not an array after parsing:`, file.qubit_values);
-                return false;
-            }
-        } catch (e) {
-            console.warn(`Error parsing qubit_values for file ${file.filename}:`, file.qubit_values, e);
-            return false;
-        }
 
         const effectiveMin = filters.minQubits !== null ? filters.minQubits : 2;
         const effectiveMax = filters.maxQubits !== null ? filters.maxQubits : 30;
-
-        return fileQubitValues.some(qubitVal => {
-            const numQubitVal = parseInt(qubitVal);
-            if (isNaN(numQubitVal)) {
-                return false;
-            }
-            return numQubitVal >= effectiveMin && numQubitVal <= effectiveMax;
-        });
+        return file.qubits >= effectiveMin && file.qubits <= effectiveMax;
     });
     console.log("After Qubit Range filtering:", filteredData.length, "rows. Effective Min/Max Qubits:", filters.minQubits, filters.maxQubits);
 
@@ -464,16 +445,8 @@ async function filterAndRenderFiles() {
 
     if (filters.avoidPositions.length > 0) {
         filteredData = filteredData.filter(file => {
-            const filePositionNum = parseInt(file.position);
-
-            if (isNaN(filePositionNum)) {
-                return false;
-            }
-
-            const isInAnyAvoidedBin = filters.avoidPositions.some(avoidBin =>
-                filePositionNum >= avoidBin.min && filePositionNum <= avoidBin.max
-            );
-            return !isInAnyAvoidedBin;
+            const filePositionNum = file.position ? String(file.position).trim() : '';
+            return !filters.avoidPositions.includes(filePositionNum);
         });
         console.log("After Avoid Positions filtering:", filteredData.length, "rows. Avoid positions:", filters.avoidPositions);
     }
@@ -496,47 +469,17 @@ async function filterAndRenderFiles() {
  * @returns {number} The total count of QASM files to be downloaded.
  */
 function calculateDownloadableFileCount() {
+
     const selectedCheckboxes = fileListContainer.querySelectorAll('.file-select-checkbox:checked');
     if (selectedCheckboxes.length === 0) {
         return 0;
     }
 
-    const mutantCombinations = new Set();
-    const originalProgramKeys = new Set(); // To track unique original programs
+        let estimatedFileCount = 0;
 
     selectedCheckboxes.forEach(checkbox => {
-        const algo = checkbox.dataset.algorithm;
-        const gate = checkbox.dataset.gate;
-        const position = checkbox.dataset.position;
-        const operation = checkbox.dataset.operation;
-        mutantCombinations.add(`${algo}|${gate}|${position}|${operation}`);
-    });
-
-    let estimatedFileCount = 0;
-
-    // Simulate the file identification from allMutantsData
-    allMutantsData.forEach(row => {
-        const algo = row.algorithm ? String(row.algorithm).trim() : '';
-        const gate = row.gate ? String(row.gate).trim() : '';
-        const position = row.position ? String(row.position).trim() : '';
-        const operation = row.operation ? String(row.operation).trim() : '';
-        const qubits = row.qubits;
-
-        const currentMutantCombination = `${algo}|${gate}|${position}|${operation}`;
-
-        if (mutantCombinations.has(currentMutantCombination)) {
-            // Count mutant file
-            estimatedFileCount++;
-
-            // Count corresponding original program if not already counted
-            if (qubits !== undefined) {
-                const originalProgramKey = `${algo}|${qubits}`;
-                if (!originalProgramKeys.has(originalProgramKey)) {
-                    estimatedFileCount++;
-                    originalProgramKeys.add(originalProgramKey);
-                }
-            }
-        }
+        const num_mutants = parseInt(checkbox.dataset.mutants);
+        estimatedFileCount += num_mutants
     });
     return estimatedFileCount;
 }
@@ -609,16 +552,20 @@ function renderFiles(files) {
             <div class="row-cell checkbox-cell">
                 <input type="checkbox" class="file-select-checkbox" name="file-select"
                     data-algorithm="${file.algorithm || ''}"
+                    data-qubits="${file.qubits || ''}"
                     data-position="${file.position || ''}"
                     data-operation="${file.operation || ''}"
                     data-gate="${file.gate || ''}"
-                    data-survival-rate="${file.survival_rate || ''}">
+                    data-survival-rate="${file.survival_rate || ''}"
+                    data-mutants="${file.mutants || ''}">
             </div>
             <div class="row-cell">${file.algorithm || 'N/A'}</div>
+            <div class="row-cell">${file.qubits || 'N/A'}</div>
             <div class="row-cell">${file.position || 'N/A'}</div>
             <div class="row-cell">${file.operation || 'N/A'}</div>
             <div class="row-cell">${file.gate || 'N/A'}</div>
             <div class="row-cell">${file.survival_rate || 'N/A'}</div>
+            <div class="row-cell">${file.mutants || 'N/A'}</div>
         `;
         fileListContainer.appendChild(fileRow);
     });
@@ -720,10 +667,11 @@ async function downloadSelectedFiles() {
 
     selectedCheckboxes.forEach(checkbox => {
         const algo = checkbox.dataset.algorithm;
+        const qubits = checkbox.dataset.qubits;
         const gate = checkbox.dataset.gate;
         const position = checkbox.dataset.position;
         const operation = checkbox.dataset.operation;
-        mutantCombinations.add(`${algo}|${gate}|${position}|${operation}`);
+        mutantCombinations.add(`${algo}|${qubits}|${gate}|${position}|${operation}`);
     });
 
     console.log("Mutant Combinations from selected files:", Array.from(mutantCombinations));
@@ -732,14 +680,14 @@ async function downloadSelectedFiles() {
 
     allMutantsData.forEach(row => {
         const algo = row.algorithm ? String(row.algorithm).trim() : '';
+        const qubits = row.qubits ? String(row.qubits).trim() : '';
         const gate = row.gate ? String(row.gate).trim() : '';
         const position = row.position ? String(row.position).trim() : '';
         const operation = row.operation ? String(row.operation).trim() : '';
 
-        const currentMutantCombination = `${algo}|${gate}|${position}|${operation}`;
+        const currentMutantCombination = `${algo}|${qubits}|${gate}|${position}|${operation}`;
 
         if (mutantCombinations.has(currentMutantCombination)) {
-            const qubits = row.qubits;
             const positionInt = row.Position_int;
 
             if (qubits === undefined || positionInt === undefined) {
