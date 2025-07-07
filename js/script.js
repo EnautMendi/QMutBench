@@ -564,7 +564,7 @@ function renderFiles(files) {
             <div class="row-cell">${file.position || 'N/A'}</div>
             <div class="row-cell">${file.operation || 'N/A'}</div>
             <div class="row-cell">${file.gate || 'N/A'}</div>
-            <div class="row-cell">${file.survival_rate || 'N/A'}</div>
+            <div class="row-cell">${file.survival_rate || '0.0'}</div>
             <div class="row-cell">${file.mutants || 'N/A'}</div>
         `;
         fileListContainer.appendChild(fileRow);

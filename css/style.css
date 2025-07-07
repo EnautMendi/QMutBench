@@ -539,7 +539,7 @@ select:focus, input[type="text"]:focus {
 }
 
 .footer-section h3 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 15px;
     color: var(--header-footer-text);
     font-weight: 600;
@@ -547,7 +547,7 @@ select:focus, input[type="text"]:focus {
 }
 
 .footer-section p {
-    font-size: 1.5em;
+    font-size: 1em;
     margin-bottom: 10px;
 }
 
@@ -570,7 +570,7 @@ select:focus, input[type="text"]:focus {
     padding: 10px;
 }
 #reference-section h4 {
-    font-size: 1.5em;
+    font-size: 1em;
     margin-bottom: 10px;
     font-weight: 400;
 
