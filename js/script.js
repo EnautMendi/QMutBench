@@ -197,7 +197,7 @@ function renderProgramOriginCheckboxes() {
     if (!programOriginCheckboxContainer) return;
 
     let htmlContent = `
-        <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox" id="toggle-all-program-origins"> Select All/None Programs</label>
+        <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox" id="toggle-all-program-origins"> Select All</label>
         <hr class="toggle-separator">
         <div class="output-type-columns">
             <div class="output-type-column">
