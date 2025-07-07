@@ -12,8 +12,20 @@
 <body>
     <header class="header">
         <h1>Welcome to QMutBench: A Quantum Circuit Mutants Benchmark!</h1>
-        <p>Please select your criteria below to get the desired mutants.</p>
     </header>
+
+    <div class="introduction-box">
+        <h2>About QMutBench</h2>
+        <p>
+            QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants. This platform allows researchers and developers to explore and download quantum circuit mutants based on various generic and specific characteristics.
+        </p>
+        <p>
+            You can filter mutants by their origin quantum program, qubit range, survival rate, and specific mutation characteristics like the quantum gate applied, position within the circuit, and the mutation operator used. Once you've made your selections, the available mutant groups will be displayed, from which you can choose specific files for download.
+        </p>
+        <p>
+            The dataset's foundation is built upon knowledge derived from a previous empirical study on quantum circuit mutants <a href="https://link.springer.com/article/10.1007/s10664-025-10643-z" target="_blank" rel="noopener noreferrer">"Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.</a>
+        </p>
+    </div>
 
     <main class="main-content">
         <div class="content-card">
@@ -179,35 +191,33 @@
 
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-column left">
-			    <h3>Reference</h3>
-                <p>
-                    The dataset's foundation is built upon knowledge derived from a previous empirical study on quantum circuit mutants <a href="https://link.springer.com/article/10.1007/s10664-025-10643-z" target="_blank" rel="noopener noreferrer">"Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.</a> 
-                </p>
-            </div>
-            <div class="footer-column centre">
-                <p>If you use this page in your research, please cite it as:</p>
-                <pre>
-                    @online{QMutBench,
-                      author = "Mendiluze Usandizaga, Eñaut",
-                      title = "QMutBench: A Quantum Circuit Mutants Benchmark",
-                      year = 2025,
-                      url = ""
-                    }
-                </pre>
-            </div>
-            <div class="footer-column right">
-                <h3>Acknowledgments</h3>
-				<p>
-					We extend our gratitude to <a href="https://www.cda.cit.tum.de/mqtbench/" target="_blank" rel="noopener noreferrer">MQTbench</a>, where we sourced the initial original quantum programs for this benchmark.
-				</p>
-				<h3>Contact</h3>
+            <div class="footer-section" id="contact-section">
+                <h3>Contact</h3>
                 <p>For support, please email us at: <a href="mailto:mendienaut@gmail.com">mendienaut@gmail.com</a></p>
 				<p>
                     <a href="https://github.com/EnautMendi" target="_blank" rel="noopener noreferrer">GitHub</a><br>
                     <a href="https://www.linkedin.com/in/e%C3%B1aut-mendiluze-9631a9226/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </p>
             </div>
+            <div class="footer-section" id="reference-section">
+			    <h3>Reference</h3>
+                <h4>If you use this page in your research, please cite it as:</h4>
+                <p>
+                    @online{QMutBench,
+                      author = "Mendiluze Usandizaga, Eñaut",
+                      title = "QMutBench: A Quantum Circuit Mutants Benchmark",
+                      year = 2025,
+                      url = ""
+                    }
+                </p>
+            </div>
+            <div class="footer-section" id="acknowledgments-section">
+                <h3>Acknowledgments</h3>
+				<p>
+					We extend our gratitude to <a href="https://www.cda.cit.tum.de/mqtbench/" target="_blank" rel="noopener noreferrer">MQTbench</a>, where we sourced the initial original quantum programs for this benchmark.
+				</p>
+            </div>
+
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 QMutBench. All rights reserved.</p>
