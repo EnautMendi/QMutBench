@@ -4,7 +4,7 @@ let allMutantsData = [];
 
 // --- References to HTML Elements ---
 const genericSection = document.getElementById('generic-section');
-const characteristicsToAvoidSection = document.getElementById('characteristics-to-avoid-section');
+const characteristicsToIncludeSection = document.getElementById('characteristics-to-include-section');
 const resultsSection = document.getElementById('results-section');
 
 let programOriginCheckboxes;
@@ -89,7 +89,7 @@ function updateSectionStates() {
 
 
     if (programOriginHasSelection && survivalRateHasSelection && qubitRangeHasSelection) {
-        characteristicsToAvoidSection.classList.remove('locked-section');
+        characteristicsToIncludeSection.classList.remove('locked-section');
         if (resultsSection.classList.contains('locked-section')) {
             resultsSection.classList.remove('locked-section');
             filterAndRenderFiles();
@@ -97,7 +97,7 @@ function updateSectionStates() {
             filterAndRenderFiles();
         }
     } else {
-        characteristicsToAvoidSection.classList.add('locked-section');
+        characteristicsToIncludeSection.classList.add('locked-section');
         resultsSection.classList.add('locked-section');
         renderFiles([]);
     }
@@ -333,9 +333,9 @@ function getSelectedFilters() {
         maxQubits: null,
         selectedSurvivalRateBins: [],
 
-        avoidGates: [],
-        avoidPositions: [],
-        avoidMutationOperators: []
+        IncludeGates: [],
+        IncludePositions: [],
+        IncludeMutationOperators: []
     };
 
     if (programOriginCheckboxes) {
@@ -363,19 +363,19 @@ function getSelectedFilters() {
 
     quantumGatesCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            filters.avoidGates.push(checkbox.value);
+            filters.IncludeGates.push(checkbox.value);
         }
     });
 
     positionsCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            filters.avoidPositions.push(checkbox.value);
+            filters.IncludePositions.push(checkbox.value);
         }
     });
 
     mutationOperatorsCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
-            filters.avoidMutationOperators.push(checkbox.value);
+            filters.IncludeMutationOperators.push(checkbox.value);
         }
     });
 
@@ -435,28 +435,28 @@ async function filterAndRenderFiles() {
     }
 
 
-    if (filters.avoidGates.length > 0) {
+    if (filters.IncludeGates.length > 0) {
         filteredData = filteredData.filter(file => {
             const fileGate = file.gate ? String(file.gate).trim() : '';
-            return !filters.avoidGates.includes(fileGate);
+            return filters.IncludeGates.includes(fileGate);
         });
-        console.log("After Avoid Gates filtering:", filteredData.length, "rows. Avoid gates:", filters.avoidGates);
+        console.log("After Include Gates filtering:", filteredData.length, "rows. Include gates:", filters.IncludeGates);
     }
 
-    if (filters.avoidPositions.length > 0) {
+    if (filters.IncludePositions.length > 0) {
         filteredData = filteredData.filter(file => {
             const filePositionNum = file.position ? String(file.position).trim() : '';
-            return !filters.avoidPositions.includes(filePositionNum);
+            return filters.IncludePositions.includes(filePositionNum);
         });
-        console.log("After Avoid Positions filtering:", filteredData.length, "rows. Avoid positions:", filters.avoidPositions);
+        console.log("After Include Positions filtering:", filteredData.length, "rows. Include positions:", filters.IncludePositions);
     }
 
-    if (filters.avoidMutationOperators.length > 0) {
+    if (filters.IncludeMutationOperators.length > 0) {
         filteredData = filteredData.filter(file => {
             const fileOperation = file.operation ? String(file.operation).trim() : '';
-            return !filters.avoidMutationOperators.includes(fileOperation);
+            return filters.IncludeMutationOperators.includes(fileOperation);
         });
-        console.log("After Avoid Mutation Operators filtering:", filteredData.length, "rows. Avoid operators:", filters.avoidOperators);
+        console.log("After Include Mutation Operators filtering:", filteredData.length, "rows. Include operators:", filters.IncludeOperators);
     }
 
     renderFiles(filteredData);
@@ -623,7 +623,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderProgramOriginCheckboxes();
     populateQubitRangeDropdowns();
 
-    characteristicsToAvoidSection.classList.add('locked-section');
+    characteristicsToIncludeSection.classList.add('locked-section');
     resultsSection.classList.add('locked-section');
 
     setupToggleAllNone(toggleAllSurvivalRates, survivalRateCheckboxes, false);
@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupToggleAllNone(toggleAllMutationOperators, mutationOperatorsCheckboxes, false);
 
     genericSection.addEventListener('change', updateSectionStates);
-    characteristicsToAvoidSection.addEventListener('change', updateSectionStates);
+    characteristicsToIncludeSection.addEventListener('change', updateSectionStates);
 
     console.log("Attempting to load all CSV data...");
 
