@@ -14,8 +14,8 @@ The QMutBench platform is intuitively designed with three main interactive secti
 
 This section establishes the broad parameters for generic quantum circuit mutant selection.
 
-<div style="text-align: center;">
-    <img src="images\GenericSelection.png" alt="Screenshot: Overview of the "Generic Selection" section, highlighting program origin, qubit range, and survival rate filters" style="max-width: 40%; height: auto; display: block; margin: 0 auto;">
+<div align="center">
+    <img src="images\GenericSelection.png" alt="Screenshot: Overview of the "Generic Selection" section, highlighting program origin, qubit range, and survival rate filters" width="400">
 </div>
 
 **Key Characteristics:**
@@ -28,8 +28,8 @@ This section establishes the broad parameters for generic quantum circuit mutant
 
 This section enables filtering based on specific mutation characteristics.
 
-<div style="text-align: center;">
-    <img src="images\MutationCharacteristics.png" alt="Screenshot: Overview of the "Mutation Characteristics" section, showing quantum gates, position, and operator filters" style="max-width: 50%; height: auto; display: block; margin: 0 auto;">
+<div align="center">
+    <img src="images\MutationCharacteristics.png" alt="Screenshot: Overview of the "Mutation Characteristics" section, showing quantum gates, position, and operator filters" width="400">
 </div>
 
 **Key Characteristics:**
@@ -42,8 +42,8 @@ This section enables filtering based on specific mutation characteristics.
 
 This section presents quantum circuit mutant groups matching specified criteria for review and download.
 
-<div style="text-align: center;">
-    <img src="images\AvailableGroups.png" alt="Screenshot: Overview of the "Available Groups" section, focusing on the results table and download button" style="max-width: 60%; height: auto; display: block; margin: 0 auto;">
+<div align="center">
+    <img src="images\AvailableGroups.png" alt="Screenshot: Overview of the "Available Groups" section, focusing on the results table and download button" width="800">
 </div>
 
 **Key Characteristics:**
@@ -56,8 +56,8 @@ This section presents quantum circuit mutant groups matching specified criteria 
 
 Downloaded `.zip` files are organized into a defined directory structure:
 
-<div style="text-align: center;">
-    <img src="images\FolderTree.png" alt="Image: Representation of the .zip folder structure (e.g., a file tree diagram)" style="max-width: 30%; height: auto; display: block; margin: 0 auto;">
+<div align="center">
+    <img src="images\FolderTree.png" alt="Image: Representation of the .zip folder structure (e.g., a file tree diagram)" width="350">
 </div>
 
 The `.zip` file contains two primary folders:
