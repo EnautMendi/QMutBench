@@ -1,15 +1,15 @@
 /* Basic Reset & Typography */
 :root {
-    --primary-color: #f25d22; /* Orange */
-    --secondary-color: #f25d22; /* Orange */
+    --primary-color: #f58052; /* Orange */
+    --secondary-color: #f58052; /* Orange */
     --background-light: #f8f9fa; /* Light grey */
     --background-dark: #e9ecef; /* Slightly darker grey */
     --text-color: #343a40; /* Dark grey */
     --border-color: #ced4da; /* Light border */
-    --card-background: #ffffff; /* White */
+    --card-background: #FEF2ED; /* Light orange */
     --shadow-light: rgba(0, 0, 0, 0.1);
     --header-footer-bg: #f25d22; /* Orange background for header/footer */
-    --header-footer-text: #ffffff; /* White text for header/footer */
+    --header-footer-text: #000000; /* Black text for header/footer */
     --success-color: #28a745; /* Green for download button */
     --locked-overlay-color: rgba(0, 0, 0, 0.2); /* Lighter overlay for locked sections */
 }
