@@ -1,6 +1,6 @@
 /* Basic Reset & Typography */
 :root {
-<<<<<<< HEAD
+
     --primary-color: #f25d22; 
     --secondary-color: #e5e1da; 
 
@@ -18,25 +18,7 @@
 
     --success-color: #8da18d; 
     --locked-overlay-color: rgba(238, 238, 238, 0.55); 
-=======
-    --primary-color: #f76707; /* Main orange – buttons, highlights */
-    --secondary-color: #ffd8c2; /* Soft orange – accents & hovers */
 
-    --background-light: #fafafa; /* Warm light background */
-    --background-dark: #f1f3f5; /* Subtle section contrast */
-
-    --text-color: #2b2b2b; /* Better readability */
-    --border-color: #e5e7eb; /* Softer, modern borders */
-
-    --card-background: #fff4ee; /* Clean light orange for cards */
-    --shadow-light: rgba(0, 0, 0, 0.08); /* Less harsh shadow */
-
-    --header-footer-bg: #d9480f; /* Deeper orange for structure */
-    --header-footer-text: #ffffff; /* High contrast text */
-
-    --success-color: #2f9e44; /* Softer, modern green */
-    --locked-overlay-color: rgba(0, 0, 0, 0.15); /* Lighter, cleaner overlay */
->>>>>>> 64d7771d912d48cdfe1b66e48f325faf74fc3c89
 }
 
 
