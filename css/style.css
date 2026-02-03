@@ -1,17 +1,22 @@
 /* Basic Reset & Typography */
 :root {
-    --primary-color: #f58052; /* Orange */
-    --secondary-color: #f58052; /* Orange */
-    --background-light: #f8f9fa; /* Light grey */
-    --background-dark: #e9ecef; /* Slightly darker grey */
-    --text-color: #343a40; /* Dark grey */
-    --border-color: #ced4da; /* Light border */
-    --card-background: #FEF2ED; /* Light orange */
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --header-footer-bg: #f25d22; /* Orange background for header/footer */
-    --header-footer-text: #000000; /* Black text for header/footer */
-    --success-color: #28a745; /* Green for download button */
-    --locked-overlay-color: rgba(0, 0, 0, 0.2); /* Lighter overlay for locked sections */
+    --primary-color: #f76707; /* Main orange – buttons, highlights */
+    --secondary-color: #ffd8c2; /* Soft orange – accents & hovers */
+
+    --background-light: #fafafa; /* Warm light background */
+    --background-dark: #f1f3f5; /* Subtle section contrast */
+
+    --text-color: #2b2b2b; /* Better readability */
+    --border-color: #e5e7eb; /* Softer, modern borders */
+
+    --card-background: #fff4ee; /* Clean light orange for cards */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Less harsh shadow */
+
+    --header-footer-bg: #d9480f; /* Deeper orange for structure */
+    --header-footer-text: #ffffff; /* High contrast text */
+
+    --success-color: #2f9e44; /* Softer, modern green */
+    --locked-overlay-color: rgba(0, 0, 0, 0.15); /* Lighter, cleaner overlay */
 }
 
 * {
