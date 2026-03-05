@@ -2,7 +2,7 @@
 
 ## About QMutBench
 
-QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants ["Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.](https://link.springer.com/article/10.1007/s10664-025-10643-z). The benchmark consists of over 300 original programs ranging from 2 to 30 qubits and their respective mutants, totaling more than 700,000.
+QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants ["Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.](https://link.springer.com/article/10.1007/s10664-025-10643-z). The benchmark consists of over 300 original programs ranging from 2 to 30 qubits and their respective mutants, totaling more than 500,000.
 
 QMutBench enables researchers and developers to explore and download quantum circuit mutants based on different characteristics. Users can filter mutants by selecting the original quantum program, specifying the range of qubits, determining the survival rate, and identifying specific mutation characteristics such as the type of quantum gate applied, its position within the circuit, and the mutation operator used. After making these selections, the available mutant groups will be displayed, with each group containing specific files available for download.
 
