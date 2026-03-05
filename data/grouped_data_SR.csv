@@ -1,4 +1,4 @@
-,algorithm,qubits,operation,position,gate,count_rows,survivor_percent
+,algorithm,qubits,operation,position,gate,mutants,survival_rate
 0,ae,2,Add,51-60%,cx,1,0
 1,ae,2,Add,51-60%,cz,1,0
 2,ae,2,Add,51-60%,h,1,100
