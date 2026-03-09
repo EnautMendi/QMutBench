@@ -17,10 +17,10 @@
     <div class="introduction-box">
         <h2>About QMutBench</h2>
         <p>
-            QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants <a href="https://link.springer.com/article/10.1007/s10664-025-10643-z" target="_blank" rel="noopener noreferrer">"Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.</a> The benchmark consists of over 300 original programs ranging from 2 to 30 qubits and their respective mutants, totaling more than 700,000.
+            QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants <a href="https://link.springer.com/article/10.1007/s10664-025-10643-z" target="_blank" rel="noopener noreferrer">"Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.</a> The benchmark consists of over 300 original circuits ranging from 2 to 30 qubits and their respective mutants, totaling more than 700,000.
         </p>
         <p>
-            This platform enables researchers and developers to explore and download quantum circuit mutants based on different characteristics. Users can filter mutants by selecting the original quantum program, specifying the range of qubits, determining the survival rate, and identifying specific mutation characteristics such as the type of quantum gate applied, its position within the circuit, and the mutation operator used. After making these selections, the available mutant groups will be displayed, with each group containing specific files available for download.
+            This platform enables researchers and developers to explore and download quantum circuit mutants based on different characteristics. Users can filter mutants by selecting the original quantum circuit, specifying the range of qubits, determining the survival rate, and identifying specific mutation characteristics such as the type of quantum gate applied, its position within the circuit, and the mutation operator used. After making these selections, the available mutant groups will be displayed, with each group containing specific files available for download.
         </p>
     </div>
 
@@ -30,7 +30,7 @@
                 <h2 class="section-title">Generic Selection</h2>
                 <div class="selection-grid">
                     <div class="filter-group">
-                        <label>Original Quantum Programs:</label>
+                        <label>Original Quantum Circuits:</label>
                         <div class="checkbox-group" id="program-origin-checkboxes">
                             <label class="select-all-toggle"><input type="checkbox" class="toggle-all-checkbox" id="toggle-all-program-origins"> Select All</label>
                             <hr class="toggle-separator">
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-				<small>*The number of qubits available for each algorithm are limited by the specification in the empirical evaluation study.</small>
+				<small>*The number of qubits available for each circuit are limited by the specification in the empirical evaluation study.</small>
             </section>
 
             <section class="specific-characteristics-section" id="characteristics-to-include-section">
@@ -211,7 +211,7 @@
             <div class="footer-section" id="acknowledgments-section">
                 <h3>Acknowledgments</h3>
 				<p>
-					We extend our gratitude to <a href="https://www.cda.cit.tum.de/mqtbench/" target="_blank" rel="noopener noreferrer">MQTbench</a>, where we sourced the initial original quantum programs for this benchmark.
+					We extend our gratitude to <a href="https://www.cda.cit.tum.de/mqtbench/" target="_blank" rel="noopener noreferrer">MQTbench</a>, where we sourced the initial original quantum circuits for this benchmark.
 				</p>
             </div>
 

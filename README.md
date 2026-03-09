@@ -2,9 +2,9 @@
 
 ## About QMutBench
 
-QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants ["Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.](https://link.springer.com/article/10.1007/s10664-025-10643-z). The benchmark consists of over 300 original programs ranging from 2 to 30 qubits and their respective mutants, totaling more than 700,000.
+QMutBench is a comprehensive benchmark for quantum circuit mutants, providing a diverse dataset derived from a previous empirical study on quantum circuit mutants ["Quantum circuit mutants: Empirical analysis and recommendations" by Mendiluze Usandizaga et al.](https://link.springer.com/article/10.1007/s10664-025-10643-z). The benchmark consists of over 300 original circuits ranging from 2 to 30 qubits and their respective mutants, totaling more than 700,000.
 
-QMutBench enables researchers and developers to explore and download quantum circuit mutants based on different characteristics. Users can filter mutants by selecting the original quantum program, specifying the range of qubits, determining the survival rate, and identifying specific mutation characteristics such as the type of quantum gate applied, its position within the circuit, and the mutation operator used. After making these selections, the available mutant groups will be displayed, with each group containing specific files available for download.
+QMutBench enables researchers and developers to explore and download quantum circuit mutants based on different characteristics. Users can filter mutants by selecting the original quantum circuit, specifying the range of qubits, determining the survival rate, and identifying specific mutation characteristics such as the type of quantum gate applied, its position within the circuit, and the mutation operator used. After making these selections, the available mutant groups will be displayed, with each group containing specific files available for download.
 
 ## Web UI
 
@@ -15,12 +15,12 @@ The QMutBench platform is intuitively designed with three main interactive secti
 This section establishes the broad parameters for generic quantum circuit mutant selection.
 
 <div align="center">
-    <img src="images\GenericSelection.png" alt="Screenshot: Overview of the "Generic Selection" section, highlighting program origin, qubit range, and survival rate filters" width="400">
+    <img src="images\GenericSelection.png" alt="Screenshot: Overview of the "Generic Selection" section, highlighting original circuit, qubit range, and survival rate filters" width="400">
 </div>
 
 **Key Characteristics:**
 
-* **Origin Quantum Programs:** Programs are categorized by output behavior ("Dominant Output" and "Non-Dominant Output") and include various algorithms (e.g., `dj`, `ghz`, `qft`, `ae`, `grover`, `vqe`).
+* **Origin Quantum Circuits:** Circuits are categorized by output behavior ("Dominant Output" and "Non-Dominant Output") and include various algorithms (e.g., `dj`, `ghz`, `qft`, `ae`, `grover`, `vqe`).
 * **Qubit Range:** Specifies the minimum and maximum number of qubits for quantum circuits (2 to 30 qubits).
 * **Survival Rate Wanted:** Selects survival rate range (e.g., `0-10%`, `11-20%`, up to `91-100%`).
 
@@ -50,7 +50,7 @@ This section presents quantum circuit mutant groups matching specified criteria 
 
 * **Filterable Table:** Results are displayed in a dynamic table with columns for `Algorithm`, `Qubits`, `Position`, `Operation`, `Gate`, `Survival Rate`, and `Mutants`.
 * **Selectable Files:** Individual or multiple selection of groups is supported.
-* **Download:** Generates a `.zip` archive containing QASM files for selected original programs and their corresponding mutants.
+* **Download:** Generates a `.zip` archive containing QASM files for selected original circuits and their corresponding mutants.
 
 ## Downloaded Files Structure
 
@@ -62,9 +62,9 @@ Downloaded `.zip` files are organized into a defined directory structure:
 
 The `.zip` file contains two primary folders:
 
-* **`Origin_programs/`**: Contains original quantum programs (`.qasm` files), named by algorithm and qubit count (i.e., `algorithm_X_qubits.qasm`).
-* **`Mutated_programs/`**: Contains quantum circuit mutants, organized into subfolders corresponding to original programs (i.e., `Mutants_algorithm_X_qubits/`). Mutant `.qasm` files within these subfolders are named based on mutation operation, gate, and position (e.g., `AddGate_H_inGap_5_.qasm`, `ReplaceGate_X_inPositionOfGate_10.qasm`, `RemoveGate_7_.qasm`).
+* **`Origin_programs/`**: Contains original quantum circuits (`.qasm` files), named by algorithm and qubit count (i.e., `algorithm_X_qubits.qasm`).
+* **`Mutated_programs/`**: Contains quantum circuit mutants, organized into subfolders corresponding to original circuits (i.e., `Mutants_algorithm_X_qubits/`). Mutant `.qasm` files within these subfolders are named based on mutation operation, gate, and position (e.g., `AddGate_H_inGap_5_.qasm`, `ReplaceGate_X_inPositionOfGate_10.qasm`, `RemoveGate_7_.qasm`).
 
 ## Acknowledgements
 
-We acknowledge [MQTbench](https://www.cda.cit.tum.de/mqtbench/) for providing the initial original quantum programs used in this benchmark.
+We acknowledge [MQTbench](https://www.cda.cit.tum.de/mqtbench/) for providing the initial original quantum circuits used in this benchmark.
