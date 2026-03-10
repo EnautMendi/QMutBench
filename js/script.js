@@ -246,15 +246,15 @@ function renderProgramOriginCheckboxes() {
     programOriginCheckboxes = document.querySelectorAll('#program-origin-checkboxes input[type="checkbox"][name="program-origin"]');
     toggleAllProgramOrigins = document.getElementById('toggle-all-program-origins');
 
-    console.log("Setting up main program origin toggle:", toggleAllProgramOrigins);
-    console.log("Targeting programs:", programOriginCheckboxes);
+    //console.log("Setting up main program origin toggle:", toggleAllProgramOrigins);
+    //console.log("Targeting programs:", programOriginCheckboxes);
 
     setupToggleAllNone(toggleAllProgramOrigins, programOriginCheckboxes, false);
 
     document.querySelectorAll('.output-type-toggle input.toggle-all-checkbox').forEach(outputToggleInput => {
         const outputType = outputToggleInput.dataset.outputType;
         const targetCheckboxes = document.querySelectorAll(`input[name="program-origin"][data-output-type="${outputType}"]`);
-        console.log(`Setting up output type toggle (${outputType}):`, outputToggleInput, "targeting:", targetCheckboxes);
+        //console.log(`Setting up output type toggle (${outputType}):`, outputToggleInput, "targeting:", targetCheckboxes);
         setupToggleAllNone(outputToggleInput, targetCheckboxes, false);
     });
 
@@ -262,7 +262,7 @@ function renderProgramOriginCheckboxes() {
         const outputType = algoGroupToggleInput.dataset.outputType;
         const algorithmGroup = algoGroupToggleInput.dataset.algorithmGroup;
         const targetCheckboxes = document.querySelectorAll(`input[name="program-origin"][data-output-type="${outputType}"][data-algorithm-group="${algorithmGroup}"]`);
-        console.log(`Setting up algo group toggle (${algorithmGroup}):`, algoGroupToggleInput, "targeting:", targetCheckboxes);
+        //console.log(`Setting up algo group toggle (${algorithmGroup}):`, algoGroupToggleInput, "targeting:", targetCheckboxes);
         setupToggleAllNone(algoGroupToggleInput, targetCheckboxes, false);
     });
 }
@@ -379,7 +379,7 @@ function getSelectedFilters() {
         }
     });
 
-    console.log("Current Filters:", filters);
+    //console.log("Current Filters:", filters);
     return filters;
 }
 
@@ -401,13 +401,13 @@ async function filterAndRenderFiles() {
     const filters = getSelectedFilters();
     let filteredData = [...allFilesData];
 
-    console.log("Initial data for filtering:", filteredData.length, "rows.");
+    //console.log("Initial data for filtering:", filteredData.length, "rows.");
 
     if (filters.selectedPrograms.length > 0) {
         filteredData = filteredData.filter(file => {
             return filters.selectedPrograms.includes(file.algorithm);
         });
-        console.log("After Program filtering:", filteredData.length, "rows. Selected programs:", filters.selectedPrograms);
+        //console.log("After Program filtering:", filteredData.length, "rows. Selected programs:", filters.selectedPrograms);
     }
 
     filteredData = filteredData.filter(file => {
@@ -416,7 +416,7 @@ async function filterAndRenderFiles() {
         const effectiveMax = filters.maxQubits !== null ? filters.maxQubits : 30;
         return file.qubits >= effectiveMin && file.qubits <= effectiveMax;
     });
-    console.log("After Qubit Range filtering:", filteredData.length, "rows. Effective Min/Max Qubits:", filters.minQubits, filters.maxQubits);
+    //console.log("After Qubit Range filtering:", filteredData.length, "rows. Effective Min/Max Qubits:", filters.minQubits, filters.maxQubits);
 
 
     if (filters.selectedSurvivalRateBins.length > 0) {
@@ -431,7 +431,7 @@ async function filterAndRenderFiles() {
             );
             return isInAnySelectedBin;
         });
-        console.log("After Survival Rate filtering:", filteredData.length, "rows. Selected bins:", filters.selectedSurvivalRateBins);
+        //console.log("After Survival Rate filtering:", filteredData.length, "rows. Selected bins:", filters.selectedSurvivalRateBins);
     }
 
 
@@ -440,7 +440,7 @@ async function filterAndRenderFiles() {
             const fileGate = file.gate ? String(file.gate).trim() : '';
             return filters.IncludeGates.includes(fileGate);
         });
-        console.log("After Include Gates filtering:", filteredData.length, "rows. Include gates:", filters.IncludeGates);
+        //console.log("After Include Gates filtering:", filteredData.length, "rows. Include gates:", filters.IncludeGates);
     }
 
     if (filters.IncludePositions.length > 0) {
@@ -448,7 +448,7 @@ async function filterAndRenderFiles() {
             const filePositionNum = file.position ? String(file.position).trim() : '';
             return filters.IncludePositions.includes(filePositionNum);
         });
-        console.log("After Include Positions filtering:", filteredData.length, "rows. Include positions:", filters.IncludePositions);
+        //console.log("After Include Positions filtering:", filteredData.length, "rows. Include positions:", filters.IncludePositions);
     }
 
     if (filters.IncludeMutationOperators.length > 0) {
@@ -456,11 +456,11 @@ async function filterAndRenderFiles() {
             const fileOperation = file.operation ? String(file.operation).trim() : '';
             return filters.IncludeMutationOperators.includes(fileOperation);
         });
-        console.log("After Include Mutation Operators filtering:", filteredData.length, "rows. Include operators:", filters.IncludeOperators);
+        //console.log("After Include Mutation Operators filtering:", filteredData.length, "rows. Include operators:", filters.IncludeOperators);
     }
 
     renderFiles(filteredData);
-    console.log("Total files rendered:", filteredData.length);
+    //console.log("Total files rendered:", filteredData.length);
 }
 
 /**
@@ -494,9 +494,9 @@ function updateSelectedCount() {
 
     // Update the button text to show the actual download count
     if (actualDownloadCount > 0) {
-        downloadButton.textContent = `Download Selected Files (${actualDownloadCount})`;
+        downloadButton.textContent = `Download Selected Mutants (${actualDownloadCount})`;
     } else {
-        downloadButton.textContent = 'Download Selected Files'; // Reset text if no files to download
+        downloadButton.textContent = 'Download Selected Mutants'; // Reset text if no files to download
     }
 
 
@@ -612,7 +612,7 @@ function loadCsvFile(csvFilePath, dataArray, dataName, callback = () => {}) {
                         dataArray.push(row);
                     }
                 });
-                console.log(`${dataName} loaded successfully. Total rows:`, dataArray.length);
+                //console.log(`${dataName} loaded successfully. Total rows:`, dataArray.length);
             }
             callback();
         }
@@ -634,7 +634,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     genericSection.addEventListener('change', updateSectionStates);
     characteristicsToIncludeSection.addEventListener('change', updateSectionStates);
 
-    console.log("Attempting to load all CSV data...");
+    //console.log("Attempting to load all CSV data...");
 
     const loadMainCsvPromise = new Promise(resolve => {
         loadCsvFile('data/grouped_data_SR.csv', allFilesData, 'grouped_data_SR.csv', resolve);
@@ -644,7 +644,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     await Promise.all([loadMainCsvPromise, loadMutantsCsvPromise]);
-    console.log("All CSV data loaded. Initializing application state.");
+    //console.log("All CSV data loaded. Initializing application state.");
     downloadButton.addEventListener('click', downloadSelectedFiles);
 
     updateSectionStates();
@@ -674,7 +674,7 @@ async function downloadSelectedFiles() {
         mutantCombinations.add(`${algo}|${qubits}|${gate}|${position}|${operation}`);
     });
 
-    console.log("Mutant Combinations from selected files:", Array.from(mutantCombinations));
+    ////console.log("Mutant Combinations from selected files:", Array.from(mutantCombinations));
 
     let filesToFetch = [];
 
@@ -719,7 +719,7 @@ async function downloadSelectedFiles() {
         }
     });
 
-    console.log("Files identified for download (mutants and originals):", filesToFetch);
+    ////console.log("Files identified for download (mutants and originals):", filesToFetch);
 
     if (filesToFetch.length === 0) {
         alert('No corresponding mutant or original files found for the selected characteristics.');
